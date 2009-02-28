@@ -59,14 +59,14 @@ def rand_name(index)
 end
     
 
-files = []
+filestrs = []
 
-files << File.read(ARGV[0])
-files << File.read(ARGV[1])
+filestrs << File.read(ARGV[0])
+filestrs << File.read(ARGV[1])
 
 splitfiles = []
 
-files.each do |file|
+filestrs.each do |file|
   splitfiles << file.split_keep(/[\.!\?]/)
 end
 
