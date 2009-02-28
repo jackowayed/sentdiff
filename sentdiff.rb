@@ -38,22 +38,25 @@ class Array
   end
 end
 
-rand_chars = []
-(a..z).each do |char|
-  rand_chars << char
+$rand_chars = []
+("a".."z").each do |char|
+  $rand_chars << char
 end
-(0..9).each do |char|
-  rand_chards << char
+("0".."9").each do |char|
+  $rand_chars << char
 end
 
 # gives num random letters or numbers
 # [num] the length of randcars you want in the string
-def rand_chars(num = 1)
+def random_chars(num = 1)
   return "" if num < 1
-  return rand_chars.rand_val
+  return $rand_chars.rand_val + random_chars(num-1)
 end
-    
 
+#give a random name for the index-th file to be saved as after being split up
+def rand_name(index)
+  "#{ARGV[index]}-sdiff-#{random_chars(5)}"
+end
     
 
 files = []
@@ -69,10 +72,25 @@ end
 
 fnames = []
 2.times do |i|
-  fnames << "#{ARGV[i]}-sdiff-#{rand_chars(5)}"
+  fnames << rand_name(i)
+end
+
+x = true
+while x
+  x = false
+  fnames.each do |file|
+    x = true if File.exists? file
+  end
+  if x
+    fnames.length.times do |i| 
+      fnames[i] = rand_name(i)
+    end
+  end
 end
 
 
+  
+    
 
 
 
