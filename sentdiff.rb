@@ -5,7 +5,7 @@
 # When you're diffing on written text, rather than code, you often have pretty long paragraphs. Often, you've made changes on every paragraph, or nearly every one. This makes diff pretty useless. 
 # Author::    Daniel Jackoway (mailto:danjdel@gmail.com)
 # Copyright:: Copyright (c) 2009 Daniel Jackoway
-# License::   Distributes under the same terms as Ruby
+# License::   Distributes under the MIT License (see COPYING file)
 
 class String
   # like #split, but keeps the part that you're splitting on. 
@@ -65,6 +65,11 @@ splitfiles = []
 
 files.each do |file|
   splitfiles << file.split_keep(/[\.!\?]/)
+end
+
+fnames = []
+2.times do |i|
+  "#{ARGV[i]}-sdiff-#{rand_chars(5)}"
 end
 
 
