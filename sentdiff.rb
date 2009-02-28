@@ -48,12 +48,12 @@ end
 
 # gives num random letters or numbers
 # [num] the length of randcars you want in the string
-def randchars(num = 1)
+def rand_chars(num = 1)
   return "" if num < 1
   return rand_chars.rand_val
 end
     
-    
+
     
 
 files = []
@@ -69,7 +69,7 @@ end
 
 fnames = []
 2.times do |i|
-  "#{ARGV[i]}-sdiff-#{rand_chars(5)}"
+  fnames << "#{ARGV[i]}-sdiff-#{rand_chars(5)}"
 end
 
 
