@@ -59,14 +59,25 @@ end
 def rand_name(index)
   "#{ARGV[index]}-sdiff-#{random_chars(5)}"
 end
+
+# go from array of the params you want to the actual params (basically to_s but w/ spaces)
+# [params] The array of paramaters
+def shell_params(params)
+  str = ""
+  params.each do |param|
+    str << param << " "
+  end
+  str 
+end
+  
     
 
 #start main
 raise ArgumentError, "I need 2 filenames to diff!" if ARGV.length < 2
 filestrs = []
 
-filestrs << File.read(ARGV[0].chomp)
-filestrs << File.read(ARGV[1].chomp)
+filestrs << File.read(ARGV[-2].chomp)
+filestrs << File.read(ARGV[-1].chomp)
 
 splitfiles = []
 
@@ -77,7 +88,7 @@ end
 
 fnames = []
 2.times do |i|
-  fnames << rand_name(i)
+  fnames << rand_name((i==0)?(-2):(-1))
 end
 
 x = true
@@ -110,6 +121,8 @@ files.each do |file|
   file.close
 end
 
-puts %x[diff #{fnames[0]} #{fnames[1]}]
+diff_params = shell_params(ARGV[0...-2])
+x = "diff #{diff_params} #{fnames[0]} #{fnames[1]}"
+system x
 %x[rm #{fnames[0]} #{fnames[1]}]
 
