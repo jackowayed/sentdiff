@@ -61,16 +61,19 @@ def rand_name(index)
 end
     
 
+#start main
+raise ArgumentError, "I need 2 filenames to diff!" if ARGV.length < 2
 filestrs = []
 
-filestrs << File.read(ARGV[0])
-filestrs << File.read(ARGV[1])
+filestrs << File.read(ARGV[0].chomp)
+filestrs << File.read(ARGV[1].chomp)
 
 splitfiles = []
 
 filestrs.each do |file|
   splitfiles << file.split_keep(/[\.!\?]/)
 end
+
 
 fnames = []
 2.times do |i|
@@ -90,9 +93,23 @@ while x
   end
 end
 
+files = []
 
-  
-    
+fnames.each do |fname|
+  files << File.open(fname, "w")
+end
 
 
+splitfiles.length.times do |i|
+  splitfiles[i].each do |line|
+    files[i] << line
+  end
+end
+
+files.each do |file|
+  file.close
+end
+
+puts %x[diff #{fnames[0]} #{fnames[1]}]
+%x[rm #{fnames[0]} #{fnames[1]}]
 
