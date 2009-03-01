@@ -102,7 +102,7 @@ end
 
 splitfiles.length.times do |i|
   splitfiles[i].each do |line|
-    files[i] << line
+    files[i] << line << "\n"
   end
 end
 
