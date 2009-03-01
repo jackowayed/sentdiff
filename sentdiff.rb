@@ -28,7 +28,9 @@ class String
       else
         str = str[ind..-1]
       end
+      arr << match
     end
+    arr
   end
 end
 
