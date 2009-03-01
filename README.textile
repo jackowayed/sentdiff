@@ -10,25 +10,27 @@ Instead, sent diff first puts a line break after every sentence (in a temporary 
 
 h2. Install
 
-download the <pre>sentdiff.rb</pre> file and run:
+Download the <pre>sentdiff.rb</pre> file. In the directory where it is, run:
 
 <pre>
 chmod +x sentdiff.rb
 sudo cp sentdiff.rb /usr/bin/sentdiff
 </pre>
 
-Now if you open a new terminal and type 
+h2. Usage
+
+After installing, simply run:
 
 <pre>
-sentdiff filename1 filename2
+sentdiff [params that get passed to diff] filename1 filename2
 </pre>
 
-it will do a diff by sentence between file1 and file2. 
+It will do a diff by sentence between file1 and file2. 
+
+filename1 and filename2 must be your *last* two params, but you may give any number (including 0) params before that it will just pass right on to diff. 
 
 h2. TODO/Known Issues
 
 It currently splits on any instance of ., ?, and !. This is because of how the splitting works exactly (it's hard to split without losing the string that you split based on without splitting on a string that you want to only go with the piece before or after the split. 
 
-It currently doesn't pass any params on to diff. That probably would be really easy to do. 
-
-I plan on fixing both of these within a few days. 
+I plan on fixing both of this within a few days. 
