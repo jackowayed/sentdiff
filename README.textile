@@ -1,0 +1,34 @@
+h1. Sent Diff
+
+Take a diff by sentence, not just by line. 
+
+h2. Why?
+
+When you're dealing with written text, rather than code, your line breaks only come at the end of paragraphs. Those are pretty large chunks to diff based on. It's not uncommon for me to send something to someone, have them edit it simply by changing it to how they want it, and then have every sentence change. This renders diff useless. 
+
+Instead, sent diff first puts a line break after every sentence (in a temporary file. It leaves the original file as is.) so that if diffs based on a smaller quantum. 
+
+h2. Install
+
+download the <pre>sentdiff.rb</pre> file and run:
+
+<pre>
+chmod +x sentdiff.rb
+sudo cp sentdiff.rb /usr/bin/sentdiff
+</pre>
+
+Now if you open a new terminal and type 
+
+<pre>
+sentdiff filename1 filename2
+</pre>
+
+it will do a diff by sentence between file1 and file2. 
+
+h2. TODO/Known Issues
+
+It currently splits on any instance of ., ?, and !. This is because of how the splitting works exactly (it's hard to split without losing the string that you split based on without splitting on a string that you want to only go with the piece before or after the split. 
+
+It currently doesn't pass any params on to diff. That probably would be really easy to do. 
+
+I plan on fixing both of these within a few days. 
