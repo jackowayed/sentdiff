@@ -9,9 +9,10 @@
 
 class String
   # like #split, but keeps the part that you're splitting on. 
+  # keeps most after.
   # [pattern] The pattern (a String or Regexp) matched based on.
-  # [before?] If true, it keeps the spiltting part with the part before the split point. If false, it goes with the part after the split point. 
-  def split_keep(pattern, before = true)
+  # [num_before] this number of chars matched will be kept in the piece before the split. The rest go after. 
+  def split_keep_after(pattern, num_before = 0)
     if pattern.class==String
       pattern = Regexp.new(pattern)
     elsif pattern.class !=Regexp
@@ -21,15 +22,11 @@ class String
     arr = []
     str = self
     while ind = pattern =~ str
-      match = str[0...ind]
-      if before
-        match << $&
-        str = str[(ind+$&.length)..-1]
-      else
-        str = str[ind..-1]
-      end
+      match = str[0...ind+num_before]
+      str = str[(ind+num_before)..-1]
       arr << match
     end
+    arr << str
     arr
   end
 end
@@ -82,7 +79,7 @@ filestrs << File.read(ARGV[-1].chomp)
 splitfiles = []
 
 filestrs.each do |file|
-  splitfiles << file.split_keep(/[\.!\?]/)
+  splitfiles << file.split_keep_after(/[\.!\?] *[A-Z\n]/, 2)
 end
 
 
