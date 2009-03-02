@@ -1,5 +1,7 @@
 h1. Sent Diff
 
+h2. Diff for Writing 
+
 Take a diff by sentence, not just by line. 
 
 h2. Why?
