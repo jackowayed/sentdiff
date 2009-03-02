@@ -27,7 +27,7 @@ sentdiff [params that get passed to diff] filename1 filename2
 
 It will do a diff by sentence between file1 and file2. 
 
-filename1 and filename2 must be your *last* two params, but you may give any number (including 0) params before that it will just pass right on to diff. 
+filename1 and filename2 must be your *last* two params, but you may give any number (including 0) params before that it will just pass right on to diff. (This should be the same as how diff works. The idea is that you anywhere you used diff before, you should be able to sue sentdiff and have it do the same thing, but diffing by sentence.)
 
 h2. Bugs
 
