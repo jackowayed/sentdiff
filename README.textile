@@ -29,8 +29,10 @@ It will do a diff by sentence between file1 and file2.
 
 filename1 and filename2 must be your *last* two params, but you may give any number (including 0) params before that it will just pass right on to diff. 
 
-h2. TODO/Known Issues
+h2. Bugs
 
-It currently splits on any instance of ., ?, and !. This is because of how the splitting works exactly (it's hard to split without losing the string that you split based on without splitting on a string that you want to only go with the piece before or after the split. 
+Please report bugs on "the wiki":http://wiki.github.com/jackowayed/sentdiff/bugs
 
-I plan on fixing both of this within a few days. 
+h2. Think it sucks?
+
+Or want to fix a bug? Make it better! Fork it!
