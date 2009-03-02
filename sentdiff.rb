@@ -52,74 +52,13 @@ def random_chars(num = 1)
   return $rand_chars.rand_val + random_chars(num-1)
 end
 
-#give a random name for the index-th file to be saved as after being split up
-def rand_name(index)
-  "#{ARGV[index]}-sdiff-#{random_chars(5)}"
+def file_with_split_sentences(old)
+  contents = File.read(old).split_keep_after(/[\.!\?] *[A-Z\n]/, 2)
+  begin newname = "#{old}-sdiff-#{random_chars 5}"; end while File.exists?(newname)
+  File.open(newname, "w") { |file| file.write contents.join("\n")}
+  newname
 end
 
-# go from array of the params you want to the actual params (basically to_s but w/ spaces)
-# [params] The array of paramaters
-def shell_params(params)
-  str = ""
-  params.each do |param|
-    str << param << " "
-  end
-  str 
-end
-  
-    
-
-#start main
-raise ArgumentError, "I need 2 filenames to diff!" if ARGV.length < 2
-filestrs = []
-
-filestrs << File.read(ARGV[-2].chomp)
-filestrs << File.read(ARGV[-1].chomp)
-
-splitfiles = []
-
-filestrs.each do |file|
-  splitfiles << file.split_keep_after(/[\.!\?] *[A-Z\n]/, 2)
-end
-
-
-fnames = []
-2.times do |i|
-  fnames << rand_name((i==0)?(-2):(-1))
-end
-
-x = true
-while x
-  x = false
-  fnames.each do |file|
-    x = true if File.exists? file
-  end
-  if x
-    fnames.length.times do |i| 
-      fnames[i] = rand_name(i)
-    end
-  end
-end
-
-files = []
-
-fnames.each do |fname|
-  files << File.open(fname, "w")
-end
-
-
-splitfiles.length.times do |i|
-  splitfiles[i].each do |line|
-    files[i] << line << "\n"
-  end
-end
-
-files.each do |file|
-  file.close
-end
-
-diff_params = shell_params(ARGV[0...-2])
-x = "diff #{diff_params} #{fnames[0]} #{fnames[1]}"
-system x
-%x[rm #{fnames[0]} #{fnames[1]}]
-
+fnames = ARGV[-2..-1].collect{|f| file_with_split_sentences f.chomp}
+system "diff #{ARGV[0...-2].join " "} #{fnames.join " "}"
+#`rm #{fnames.join " "}`
